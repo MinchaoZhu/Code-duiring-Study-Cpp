@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdlib.h>
+#include <cstring>
 using namespace std;
 
 
@@ -9,7 +10,14 @@ class stack{
         stack(){
             _size = 0;
             _capacity = 20;
-            _s = (char*)malloc(_capacity*sizeof(char));    
+            _s = (char*)malloc(_capacity*sizeof(char)); 
+
+        }
+        stack(const stack & _s0 ){
+            _size = _s0.size();
+            _capacity = _s0._capacity;
+            _s = (char*)malloc(_capacity*sizeof(char)); 
+            memcpy(_s,_s0._s,_capacity*sizeof(char));
         }
         ~stack(){
             free(_s);
@@ -85,9 +93,9 @@ int main(void){
     for(int i = 0;i<29;++i){
         iS.push('a'+i%26);
     }
-    iS.print();
-
-    cout<< "size is "<< iS.size()<<endl;
+    stack iS2 = iS;
+    cout<< "size is "<< iS2.size()<<endl;
+    iS2.print();
 
     return 0;
 }
